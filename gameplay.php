@@ -15,12 +15,6 @@ if (!isset($_SESSION['answered'])) {
     $_SESSION['answered'] = [];
 }
 
-// Update scores based on submitted form data (e.g., adding or subtracting points)
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['team']) && isset($_POST['change'])) {
-    $team = intval($_POST['team']);
-    $change = intval($_POST['change']);
-    $_SESSION['scores'][$team - 1] += $change; // Adjust score for selected team
-}
 
 // Check if a question was answered
 if (isset($_POST['category']) && isset($_POST['value'])) {
@@ -66,21 +60,6 @@ if (isset($_POST['category']) && isset($_POST['value'])) {
                     </tr>
                 <?php endfor; ?>
             </table>
-        </div>
-
-        <!-- Scoreboard based on the number of teams -->
-        <div class="scoreboard">
-            <?php for ($team = 1; $team <= $teamCount; $team++): ?>
-                <div class="team-score">
-                    <h3>Team <?= $team ?></h3>
-                    <p class="score">$<?= $_SESSION['scores'][$team - 1] ?></p>
-                    <form action="" method="POST">
-                        <input type="hidden" name="team" value="<?= $team ?>">
-                        <button type="submit" name="change" value="100">+ $100</button>
-                        <button type="submit" name="change" value="-100">- $100</button>
-                    </form>
-                </div>
-            <?php endfor; ?>
         </div>
     </div>
 </body>
