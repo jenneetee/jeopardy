@@ -14,14 +14,6 @@ $teamCount = isset($_SESSION['teamCount']) ? $_SESSION['teamCount'] : 1;
 if (!isset($_SESSION['answered'])) {
     $_SESSION['answered'] = [];
 }
-
-
-// Check if a question was answered
-if (isset($_POST['category']) && isset($_POST['value'])) {
-    $category = intval($_POST['category']);
-    $value = intval($_POST['value']);
-    $_SESSION['answered'][$category][$value] = true; // Mark question as answered
-}
 ?>
 
 <!DOCTYPE html>
