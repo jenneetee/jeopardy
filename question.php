@@ -4,39 +4,39 @@ session_start();
 // Sample questions and answers
 $questions = [
     1 => [
-        1 => ['question' => 'Add question here', 'answer' => 'Add answer here'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
-        2 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        3 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        4 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        5 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
+        1 => ['question' => 'Add question here'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
+        2 => ['question' => 'Add question here'],
+        3 => ['question' => 'Add question here'],
+        4 => ['question' => 'Add question here'],
+        5 => ['question' => 'Add question here'],
     ],
     2 => [
-        1 => ['question' => 'Add question here', 'answer' => 'Add answer here'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
-        2 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        3 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        4 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        5 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
+        1 => ['question' => '6 + 7 ='], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
+        2 => ['question' => 'What is the first step PEMDAS'],
+        3 => ['question' => 'How do you find an area under a curve?'],
+        4 => ['question' => 'If you have 3/4 of a pizza and eat 1/2 of what you have, how much of the whole pizza do you have left?'],
+        5 => ['question' => 'What rule do you use in the case where direct substitution yields an indeterminate form, meaning 0/0 or ±∞/±∞ while doing a limit.'],
     ],
     3 => [
-        1 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        2 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        3 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        4 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        5 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
+        1 => ['question' => 'He is a scary character who shows up in nightmares with a burned face, a striped sweater, a hat, and a glove with sharp claws. He attacks people in their dreams.'],
+        2 => ['question' => 'Add question here'],
+        3 => ['question' => 'Add question here'],
+        4 => ['question' => 'Add question here'],
+        5 => ['question' => 'Who is the killer in the 1980 horror film Friday 13th where the killer seeks revenge and kills camp counselors'],
     ],
     4 => [
-        1 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        2 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        3 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        4 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        5 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
+        1 => ['question' => 'What has to be broken before you can use it?'],
+        2 => ['question' => 'Add question here'],
+        3 => ['question' => 'Add question here'],
+        4 => ['question' => 'Add question here'],
+        5 => ['question' => 'Add question here'],
     ],
     5 => [
-        1 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        2 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        3 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        4 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
-        5 => ['question' => 'Add question here', 'answer' => 'Add answer here'],
+        1 => ['question' => 'Add question here'],
+        2 => ['question' => 'Add question here'],
+        3 => ['question' => 'Add question here'],
+        4 => ['question' => 'Add question here'],
+        5 => ['question' => 'Add question here'],
     ],
 ];
 

@@ -32,11 +32,11 @@ if (!isset($_SESSION['answered'])) {
         <div class="gameboard-container">
             <table class="gameboard">
                 <tr>
-                    <th>Category 1</th>
-                    <th>Category 2</th>
-                    <th>Category 3</th>
-                    <th>Category 4</th>
-                    <th>Category 5</th>
+                    <th>Memes</th>
+                    <th>Math</th>
+                    <th>Fictional Killers </th>
+                    <th>Riddles</th>
+                    <th>Staple Foods</th>
                 </tr>
                 <?php
                 for ($row = 1; $row <= 5; $row++): ?>
