@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #1E1E50;
     color: #fff;
     display: flex;
@@ -28,21 +28,28 @@ h1 {
 table.gameboard {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* Forces columns to share equal width */
 }
 
 table.gameboard th,
 table.gameboard td {
+    width: 20%; /* 5 columns at equal width for a full-width table */
+    height: 100px; /* Fixed height for each tile */
     border: 2px solid #fff;
-    padding: 30px;
     text-align: center;
+    vertical-align: middle; /* Centers content vertically */
+    overflow: hidden; /* Prevents content overflow */
+    white-space: nowrap; /* Keeps text on one line */
+    text-overflow: ellipsis; /* Adds ellipsis if text is too long */
 }
 
 table.gameboard th {
-    background-color: #0057D9;
+    background-color: #00112e;
     font-size: 20px;
 }
 
 table.gameboard td {
+    background-color: #001F54;
     color: #FFD700;
     font-size: 24px;
 }
@@ -50,10 +57,22 @@ table.gameboard td {
 table.gameboard td a {
     color: #FFD700;
     text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 100px; /* Vertically centers text in each tile */
 }
 
 table.gameboard td a:hover {
     text-decoration: underline;
+}
+
+/* Faded style for answered questions */
+.answered {
+    background-color: #333; /* Darker background to indicate answered */
+    color: #888; /* Dimmed text color */
+    pointer-events: none; /* Prevents clicking on answered questions */
+    opacity: 0.5;
 }
 
 .scoreboard {
@@ -94,11 +113,4 @@ table.gameboard td a:hover {
 
 .team-score button:hover {
     background-color: #45a049;
-}
-
-
-/*DOESN'T WORK*/
-table.gameboard td.answered {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighten the background */
-    color: gray; /* Make the text gray to indicate it's answered */
 }

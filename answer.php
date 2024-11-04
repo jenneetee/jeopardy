@@ -4,9 +4,9 @@ session_start();
 // Sample questions and answers for validation
 $questions = [
     1 => [
-        1 => ['answer' => 'Add answer here'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
+        1 => ['answer' => 'Doge'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
         2 => ['answer' => 'Add answer here'],
-        3 => ['answer' => 'Add answer here'],
+        3 => ['answer' => 'girl'],
         4 => ['answer' => 'Add answer here'],
         5 => ['answer' => 'Add answer here'],
     ],
@@ -26,15 +26,15 @@ $questions = [
     ],
     4 => [
         1 => ['answer' => 'egg'],
-        2 => ['answer' => 'Add answer here'],
-        3 => ['answer' => 'Add answer here'],
+        2 => ['answer' => 'Sponge'],
+        3 => ['answer' => 'Piano'],
         4 => ['answer' => 'Add answer here'],
         5 => ['answer' => 'Add answer here'],
     ],
     5 => [
-        1 => ['answer' => 'Add answer here'],
-        2 => ['answer' => 'Add answer here'],
-        3 => ['answer' => 'Add answer here'],
+        1 => ['answer' => 'Pho'],
+        2 => ['answer' => 'Sushi'],
+        3 => ['answer' => 'Paella'],
         4 => ['answer' => 'Add answer here'],
         5 => ['answer' => 'Add answer here'],
     ],

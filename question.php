@@ -4,14 +4,14 @@ session_start();
 // Sample questions and answers
 $questions = [
     1 => [
-        1 => ['question' => 'Add question here'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
+        1 => ['question' => 'Name of Shiba Inu meme'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with answer too!!!
         2 => ['question' => 'Add question here'],
-        3 => ['question' => 'Add question here'],
+        3 => ['question' => 'Mama a ___ behind you💜.'],
         4 => ['question' => 'Add question here'],
         5 => ['question' => 'Add question here'],
     ],
     2 => [
-        1 => ['question' => '6 + 7 ='], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
+        1 => ['question' => '6 + 7 ='], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with answer too!!!
         2 => ['question' => 'What is the first step PEMDAS'],
         3 => ['question' => 'How do you find an area under a curve?'],
         4 => ['question' => 'If you have 3/4 of a pizza and eat 1/2 of what you have, how much of the whole pizza do you have left?'],
@@ -25,16 +25,16 @@ $questions = [
         5 => ['question' => 'Who is the killer in the 1980 horror film Friday 13th where the killer seeks revenge and kills camp counselors'],
     ],
     4 => [
-        1 => ['question' => 'What has to be broken before you can use it?'],
-        2 => ['question' => 'Add question here'],
-        3 => ['question' => 'Add question here'],
+        1 => ['question' => 'What has to be broken before you can eat it?'],
+        2 => ['question' => 'What is full of holes but still holds water?'],
+        3 => ['question' => 'What has 88 keys, but cannot open a single door?'],
         4 => ['question' => 'Add question here'],
         5 => ['question' => 'Add question here'],
     ],
     5 => [
-        1 => ['question' => 'Add question here'],
-        2 => ['question' => 'Add question here'],
-        3 => ['question' => 'Add question here'],
+        1 => ['question' => 'A popular Vietnamese noodle dish known for its aromatic flavors and health benefits'],
+        2 => ['question' => 'A Japanese dish consisting of small balls or rolls of vinegar-flavored cold cooked rice served with a garnish of raw fish, vegetables, or egg.'],
+        3 => ['question' => 'A Spanish dish of rice, saffron, chicken, seafood, etc., cooked and served in a large shallow pan.'],
         4 => ['question' => 'Add question here'],
         5 => ['question' => 'Add question here'],
     ],

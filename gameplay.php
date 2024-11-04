@@ -36,7 +36,7 @@ if (!isset($_SESSION['answered'])) {
                     <th>Math</th>
                     <th>Fictional Killers </th>
                     <th>Riddles</th>
-                    <th>Staple Foods</th>
+                    <th>International Foods</th>
                 </tr>
                 <?php
                 for ($row = 1; $row <= 5; $row++): ?>
