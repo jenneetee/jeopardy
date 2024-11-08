@@ -4,39 +4,39 @@ session_start();
 // Sample questions and answers
 $questions = [
     1 => [
-        1 => ['question' => 'Name of Shiba Inu meme'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with answer too!!!
-        2 => ['question' => 'Add question here'],
-        3 => ['question' => 'Mama a ___ behind you💜.'],
-        4 => ['question' => 'Add question here'],
-        5 => ['question' => 'Add question here'],
+        1 => ['question' => 'What is the name of the Shiba Inu dog meme that became popular on the internet?'],
+        2 => ['question' => 'What is the term for humorous images or videos shared widely on the internet?'],
+        3 => ['question' => 'Complete the phrase: "Mama a ___ behind you💜."'],
+        4 => ['question' => 'What popular meme involves a frog sipping tea, captioned with "But that’s none of my business"?'],
+        5 => ['question' => 'What meme involves a cat sitting at a dinner table looking angry?'],
     ],
     2 => [
-        1 => ['question' => '6 + 7 ='], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with answer too!!!
-        2 => ['question' => 'What is the first step PEMDAS'],
-        3 => ['question' => 'How do you find an area under a curve?'],
+        1 => ['question' => 'What is the sum of 6 + 7?'],
+        2 => ['question' => 'What is the first step in the order of operations (PEMDAS)?'],
+        3 => ['question' => 'What calculus operation is used to find the area under a curve?'],
         4 => ['question' => 'If you have 3/4 of a pizza and eat 1/2 of what you have, how much of the whole pizza do you have left?'],
-        5 => ['question' => 'What rule do you use in the case where direct substitution yields an indeterminate form, meaning 0/0 or ±∞/±∞ while doing a limit.'],
+        5 => ['question' => 'What rule is used in limits to resolve 0/0 indeterminate forms?'],
     ],
     3 => [
-        1 => ['question' => 'He is a scary character who shows up in nightmares with a burned face, a striped sweater, a hat, and a glove with sharp claws. He attacks people in their dreams.'],
-        2 => ['question' => 'Add question here'],
-        3 => ['question' => 'Add question here'],
-        4 => ['question' => 'Add question here'],
-        5 => ['question' => 'Who is the killer in the 1980 horror film Friday 13th where the killer seeks revenge and kills camp counselors'],
+        1 => ['question' => 'Who is the fictional killer who attacks people in their dreams, has a burned face, a striped sweater, and a glove with claws?'],
+        2 => ['question' => 'What movie features a killer named Jason who wears a hockey mask?'],
+        3 => ['question' => 'What is the name of the killer doll in the "Child’s Play" horror movie series?'],
+        4 => ['question' => 'In what movie does the character Ghostface appear?'],
+        5 => ['question' => 'Who is the killer in the 1980 horror film "Friday the 13th"?'],
     ],
     4 => [
-        1 => ['question' => 'What has to be broken before you can eat it?'],
+        1 => ['question' => 'What has to be broken before you can use it?'],
         2 => ['question' => 'What is full of holes but still holds water?'],
-        3 => ['question' => 'What has 88 keys, but cannot open a single door?'],
-        4 => ['question' => 'Add question here'],
-        5 => ['question' => 'Add question here'],
+        3 => ['question' => 'What has 88 keys but cannot open a single door?'],
+        4 => ['question' => 'What question can you never answer "yes" to?'],
+        5 => ['question' => 'What has a face, two hands, but no arms or legs?'],
     ],
     5 => [
-        1 => ['question' => 'A popular Vietnamese noodle dish known for its aromatic flavors and health benefits'],
-        2 => ['question' => 'A Japanese dish consisting of small balls or rolls of vinegar-flavored cold cooked rice served with a garnish of raw fish, vegetables, or egg.'],
-        3 => ['question' => 'A Spanish dish of rice, saffron, chicken, seafood, etc., cooked and served in a large shallow pan.'],
-        4 => ['question' => 'Add question here'],
-        5 => ['question' => 'Add question here'],
+        1 => ['question' => 'What is the name of the popular Vietnamese noodle soup made with beef or chicken?'],
+        2 => ['question' => 'What is the Japanese dish consisting of small rolls of vinegar-flavored rice with raw fish, vegetables, or egg?'],
+        3 => ['question' => 'What is the traditional Spanish rice dish made with saffron, chicken, and seafood, served in a large shallow pan?'],
+        4 => ['question' => 'What is the Italian pasta dish with eggs, cheese, pancetta, and black pepper?'],
+        5 => ['question' => 'What is the French dish of snails cooked with garlic butter, parsley, and herbs?'],
     ],
 ];
 
@@ -44,9 +44,13 @@ $questions = [
 $category = isset($_GET['category']) ? intval($_GET['category']) : 1;
 $value = isset($_GET['value']) ? intval($_GET['value']) : 100;
 
-// Determine the question based on category and value
-$questionData = $questions[$category][$value / 100] ?? null;
+// Calculate question index by dividing value by 100 (e.g., 100 -> 1, 200 -> 2, etc.)
+$questionIndex = $value / 100;
 
+// Fetch the question based on category and question index
+$questionData = $questions[$category][$questionIndex] ?? null;
+
+// Debugging output to help trace the issue
 ?>
 
 <!DOCTYPE html>
@@ -60,16 +64,23 @@ $questionData = $questions[$category][$value / 100] ?? null;
 <body>
     <div class="container">
         <h1>Question for $<?= $value ?></h1>
+        
         <?php if ($questionData): ?>
             <p><strong><?= $questionData['question'] ?></strong></p>
             <form action="answer.php" method="POST">
                 <input type="hidden" name="category" value="<?= $category ?>">
                 <input type="hidden" name="value" value="<?= $value ?>">
+                <input type="hidden" name="team" value="<?= $_SESSION['currentTeam'] ?>">
                 <input type="text" name="answer" placeholder="Your answer here" required>
                 <button type="submit">Submit Answer</button>
             </form>
         <?php else: ?>
             <p>Question not found.</p>
+            <p><strong>Debugging Info:</strong></p>
+            <p>Category: <?= htmlspecialchars($category) ?></p>
+            <p>Value: <?= htmlspecialchars($value) ?></p>
+            <p>Question Index: <?= htmlspecialchars($questionIndex) ?></p>
+            <p>Array Check: <?= isset($questions[$category][$questionIndex]) ? 'Question exists' : 'Question does not exist' ?></p>
         <?php endif; ?>
     </div>
 </body>

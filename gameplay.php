@@ -1,16 +1,15 @@
 <?php
 session_start();
 
-// Check if team count was posted from index.php; if so, set it in the session and reset scores
+// Initialize teams and scores
 if (isset($_POST['teamCount'])) {
     $_SESSION['teamCount'] = intval($_POST['teamCount']);
-    $_SESSION['scores'] = array_fill(0, $_SESSION['teamCount'], 0); // Reset scores to $0 for each team
+    $_SESSION['scores'] = array_fill(0, $_SESSION['teamCount'], 0);
+    $_SESSION['currentTeam'] = 0;
 }
 
-// Get the team count from the session (default to 1 if not set)
-$teamCount = isset($_SESSION['teamCount']) ? $_SESSION['teamCount'] : 1;
-
-// Initialize or retrieve the answered questions
+// Get team count and answered questions
+$teamCount = $_SESSION['teamCount'] ?? 1;
 if (!isset($_SESSION['answered'])) {
     $_SESSION['answered'] = [];
 }
@@ -26,7 +25,18 @@ if (!isset($_SESSION['answered'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Jeopardy!!</h1>
+        <h1>Jeopardy Gameboard</h1>
+
+        <!-- Display team scores and current team -->
+        <div class="team-scores">
+            <h2>Team Scores</h2>
+            <ul>
+                <?php for ($i = 0; $i < $teamCount; $i++): ?>
+                    <li>Team <?= $i + 1 ?>: $<?= $_SESSION['scores'][$i] ?></li>
+                <?php endfor; ?>
+            </ul>
+            <p><strong>Current Team to Answer: Team <?= $_SESSION['currentTeam'] + 1 ?></strong></p>
+        </div>
 
         <!-- Gameboard Table -->
         <div class="gameboard-container">
@@ -34,16 +44,15 @@ if (!isset($_SESSION['answered'])) {
                 <tr>
                     <th>Memes</th>
                     <th>Math</th>
-                    <th>Fictional Killers </th>
+                    <th>Fictional Killers</th>
                     <th>Riddles</th>
                     <th>International Foods</th>
                 </tr>
-                <?php
-                for ($row = 1; $row <= 5; $row++): ?>
+                <?php for ($row = 1; $row <= 5; $row++): ?>
                     <tr>
                         <?php for ($col = 1; $col <= 5; $col++): ?>
                             <?php 
-                            $isAnswered = isset($_SESSION['answered'][$col][$row * 100]) ? 'answered' : ''; // Check if answered
+                            $isAnswered = isset($_SESSION['answered'][$col][$row * 100]) ? 'answered' : ''; 
                             ?>
                             <td class="<?= $isAnswered ?>">
                                 <a href="question.php?category=<?= $col ?>&value=<?= $row * 100 ?>" <?= $isAnswered ? 'style="pointer-events: none; opacity: 0.5;"' : '' ?>>$<?= $row * 100 ?></a>

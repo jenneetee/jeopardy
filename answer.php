@@ -1,57 +1,70 @@
 <?php
 session_start();
 
-// Sample questions and answers for validation
+// Sample answers for validation
 $questions = [
     1 => [
-        1 => ['answer' => 'Doge'], //IMPORTANT: MAKE SURE TO UPDATE "answer.php" with question and answer too!!!
-        2 => ['answer' => 'Add answer here'],
-        3 => ['answer' => 'girl'],
-        4 => ['answer' => 'Add answer here'],
-        5 => ['answer' => 'Add answer here'],
+        1 => ['answer' => 'Doge'],
+        2 => ['answer' => 'Meme'],
+        3 => ['answer' => 'Mistake'],
+        4 => ['answer' => 'Kermit'],
+        5 => ['answer' => 'Grumpy Cat'],
     ],
     2 => [
         1 => ['answer' => '13'],
-        2 => ['answer' => 'parenthesis'],
+        2 => ['answer' => 'Parentheses'],
         3 => ['answer' => 'Integral'],
-        4 => ['answer' => '3/8'],
-        5 => ['answer' => 'L Hopital'],
+        4 => ['answer' => 'Three-eighths'],
+        5 => ['answer' => 'L Hopital’s Rule'],
     ],
     3 => [
         1 => ['answer' => 'Freddy Krueger'],
-        2 => ['answer' => 'Add answer here'],
-        3 => ['answer' => 'Add answer here'],
-        4 => ['answer' => 'Add answer here'],
+        2 => ['answer' => 'Jason Voorhees'],
+        3 => ['answer' => 'Chucky'],
+        4 => ['answer' => 'Scream'],
         5 => ['answer' => 'Pamela Voorhees'],
     ],
     4 => [
-        1 => ['answer' => 'egg'],
+        1 => ['answer' => 'Egg'],
         2 => ['answer' => 'Sponge'],
         3 => ['answer' => 'Piano'],
-        4 => ['answer' => 'Add answer here'],
-        5 => ['answer' => 'Add answer here'],
+        4 => ['answer' => 'Are you asleep?'],
+        5 => ['answer' => 'Clock'],
     ],
     5 => [
         1 => ['answer' => 'Pho'],
         2 => ['answer' => 'Sushi'],
         3 => ['answer' => 'Paella'],
-        4 => ['answer' => 'Add answer here'],
-        5 => ['answer' => 'Add answer here'],
+        4 => ['answer' => 'Carbonara'],
+        5 => ['answer' => 'Escargot'],
     ],
 ];
 
-// Get the category and value from the POST parameters
-$category = isset($_POST['category']) ? intval($_POST['category']) : 1;
-$value = isset($_POST['value']) ? intval($_POST['value']) : 100;
-$userAnswer = isset($_POST['answer']) ? trim($_POST['answer']) : '';
+$category = $_POST['category'] ?? 1;
+$value = $_POST['value'] ?? 100;
+$userAnswer = $_POST['answer'] ?? '';
+$teamIndex = $_POST['team'] ?? 0;
 
-// Check if the answer is correct
 $isCorrect = false;
 if (isset($questions[$category][$value / 100])) {
     $correctAnswer = $questions[$category][$value / 100]['answer'];
-    $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0; // Case insensitive comparison
+    $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0;
 }
 
+// Update score based on correctness
+if ($isCorrect) {
+    $_SESSION['scores'][$teamIndex] += $value;
+    $_SESSION['answered'][$category][$value] = true;
+} else {
+    $_SESSION['scores'][$teamIndex] -= $value;
+    // Prevent negative score
+    if ($_SESSION['scores'][$teamIndex] < 0) {
+        $_SESSION['scores'][$teamIndex] = 0;
+    }
+}
+
+// Rotate to the next team
+$_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount'];
 ?>
 
 <!DOCTYPE html>
