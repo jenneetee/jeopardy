@@ -6,13 +6,14 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0;
-    height: 100vh;
+  
 }
 
 .container {
     width: 100%;
     max-width: 1200px;
     text-align: center;
+   
 }
 
 h1 {
@@ -34,7 +35,7 @@ table.gameboard {
 table.gameboard th,
 table.gameboard td {
     width: 20%; /* 5 columns at equal width for a full-width table */
-    height: 100px; /* Fixed height for each tile */
+    height: 70px; /* Fixed height for each tile */
     border: 2px solid #fff;
     text-align: center;
     vertical-align: middle; /* Centers content vertically */
@@ -51,7 +52,8 @@ table.gameboard th {
 table.gameboard td {
     background-color: #001F54;
     color: #FFD700;
-    font-size: 24px;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 table.gameboard td a {
@@ -83,7 +85,7 @@ table.gameboard td a:hover {
 }
 
 .team-score {
-    background-color: #2A3698;
+    background-color: #007BFF;
     border-radius: 8px;
     padding: 10px;
     width: 100px;
@@ -114,3 +116,20 @@ table.gameboard td a:hover {
 .team-score button:hover {
     background-color: #45a049;
 }
+
+/*for the team points section*/
+.team-scores-list {
+    list-style: none;         
+    font-size: 1.5em;         
+    display: flex;           
+    gap: 20px;               
+    padding: 10px 0;     
+    justify-content: center;
+}
+
+.team-scores-list li {
+    font-weight: bold;        
+    padding: 0 15px;          
+    white-space: nowrap;
+}
+

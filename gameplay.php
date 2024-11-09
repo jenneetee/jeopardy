@@ -25,17 +25,21 @@ if (!isset($_SESSION['answered'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Jeopardy Gameboard</h1>
+            
 
+
+        <h1>Jeopardy Gameboard</h1>
         <!-- Display team scores and current team -->
         <div class="team-scores">
-            <h2>Team Scores</h2>
-            <ul>
-                <?php for ($i = 0; $i < $teamCount; $i++): ?>
-                    <li>Team <?= $i + 1 ?>: $<?= $_SESSION['scores'][$i] ?></li>
-                <?php endfor; ?>
-            </ul>
-            <p><strong>Current Team to Answer: Team <?= $_SESSION['currentTeam'] + 1 ?></strong></p>
+
+        <ul class="team-scores-list">
+            <?php for ($i = 0; $i < $teamCount; $i++): ?>
+                <li>Team <?= $i + 1 ?>: $<?= $_SESSION['scores'][$i] ?></li>
+            <?php endfor; ?>
+        
+        </ul>
+        <p><strong>Current Team to Answer: Team <?= $_SESSION['currentTeam'] + 1 ?></strong></p>
+            
         </div>
 
         <!-- Gameboard Table -->
