@@ -1,12 +1,11 @@
 <?php
 session_start();
 
-// Sample answers for validation
 $questions = [
     1 => [
         1 => ['answer' => 'Doge'],
         2 => ['answer' => 'Meme'],
-        3 => ['answer' => 'Mistake'],
+        3 => ['answer' => 'girl'],
         4 => ['answer' => 'Kermit'],
         5 => ['answer' => 'Grumpy Cat'],
     ],
@@ -51,7 +50,7 @@ if (isset($questions[$category][$value / 100])) {
     $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0;
 }
 
-// Update score based on correctness
+
 if ($isCorrect) {
     $_SESSION['scores'][$teamIndex] += $value;
     $_SESSION['answered'][$category][$value] = true;
@@ -63,7 +62,7 @@ if ($isCorrect) {
     }
 }
 
-// Rotate to the next team
+
 $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount'];
 ?>
 
