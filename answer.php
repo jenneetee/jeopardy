@@ -51,23 +51,22 @@ $isCorrect = false;
 $questionIndex = $value / 100;
 if (isset($questions[$category][$questionIndex])) {
     $correctAnswer = $questions[$category][$questionIndex]['answer'];
-    $correctImage = $questions[$category][$questionIndex]['image'] ?? null; // Get image if it exists
+    $correctImage = $questions[$category][$questionIndex]['image'] ?? null;
     $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0;
 }
 
-//Update team score
 if ($isCorrect) {
     $_SESSION['scores'][$teamIndex] += $value;
     $_SESSION['answered'][$category][$value] = true;
+    $resultClass = 'correct';
 } else {
     $_SESSION['scores'][$teamIndex] -= $value;
-    // stops scores from going negative
+    $resultClass = 'incorrect';
     if ($_SESSION['scores'][$teamIndex] < 0) {
         $_SESSION['scores'][$teamIndex] = 0;
     }
 }
 
-// Rotate to the next team
 $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount'];
 ?>
 
@@ -79,7 +78,7 @@ $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount
     <title>Answer Result</title>
     <link rel="stylesheet" href="answer.css">
 </head>
-<body>
+<body class="<?= $resultClass ?>">
     <div class="container">
         <h1>Answer Result</h1>
         <?php if ($isCorrect): ?>
@@ -88,7 +87,6 @@ $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount
             <p>Incorrect. The correct answer was: <strong><?= htmlspecialchars($correctAnswer) ?></strong></p>
         <?php endif; ?>
         
-        <!-- Display the answer image if it exists -->
         <?php if (isset($correctImage)): ?>
             <img src="<?= $correctImage ?>" alt="Image for <?= htmlspecialchars($correctAnswer) ?>" width="200">
         <?php endif; ?>

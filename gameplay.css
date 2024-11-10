@@ -6,19 +6,19 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0;
-  
+    animation: fadeIn 1s ease-in-out;
 }
 
 .container {
     width: 100%;
     max-width: 1200px;
     text-align: center;
-   
 }
 
 h1 {
     font-size: 36px;
     margin: 20px 0;
+    animation: slideIn 1s ease-out;
 }
 
 .gameboard-container {
@@ -29,19 +29,20 @@ h1 {
 table.gameboard {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* Forces columns to share equal width */
+    table-layout: fixed;
 }
 
 table.gameboard th,
 table.gameboard td {
-    width: 20%; /* 5 columns at equal width for a full-width table */
-    height: 70px; /* Fixed height for each tile */
+    width: 20%;
+    height: 70px;
     border: 2px solid #fff;
     text-align: center;
-    vertical-align: middle; /* Centers content vertically */
-    overflow: hidden; /* Prevents content overflow */
-    white-space: nowrap; /* Keeps text on one line */
-    text-overflow: ellipsis; /* Adds ellipsis if text is too long */
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: background-color 0.3s ease;
 }
 
 table.gameboard th {
@@ -62,19 +63,18 @@ table.gameboard td a {
     display: block;
     width: 100%;
     height: 100%;
-    line-height: 100px; /* Vertically centers text in each tile */
+    line-height: 70px;
 }
 
 table.gameboard td a:hover {
     text-decoration: underline;
 }
 
-/* Faded style for answered questions */
 .answered {
-    background-color: #333; /* Darker background to indicate answered */
-    color: #888; /* Dimmed text color */
-    pointer-events: none; /* Prevents clicking on answered questions */
+    background-color: #333;
+    color: #888;
     opacity: 0.5;
+    pointer-events: none;
 }
 
 .scoreboard {
@@ -102,34 +102,28 @@ table.gameboard td a:hover {
     margin: 10px 0;
 }
 
-.team-score button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 2px;
-    font-size: 18px;
-}
-
-.team-score button:hover {
-    background-color: #45a049;
-}
-
-/*for the team points section*/
 .team-scores-list {
-    list-style: none;         
-    font-size: 1.5em;         
-    display: flex;           
-    gap: 20px;               
-    padding: 10px 0;     
+    list-style: none;
+    font-size: 1.5em;
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
     justify-content: center;
 }
 
 .team-scores-list li {
-    font-weight: bold;        
-    padding: 0 15px;          
+
+    font-weight: bold;
+    padding: 0 15px;
     white-space: nowrap;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
