@@ -1,58 +1,90 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1E1E50; /* Dark background for contrast */
-    color: #fff; /* White text for readability */
+    background-color: #1E1E50;
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
-    height: 100vh; /* Full height for centering */
+    height: 100vh;
+    animation: fadeIn 1s ease-in-out; /* Animation for page load */
 }
 
 .container {
     width: 100%;
-    max-width: 800px; /* Limit the width for better readability */
-    text-align: center; /* Center the text */
-    background-color: #1E1E50; /* Container background color */
-    padding: 20px; /* Spacing inside the container */
+    max-width: 800px;
+    text-align: center;
+    background-color: #1E1E50;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 36px; /* Large heading for the title */
-    margin: 20px 0; /* Space around the heading */
+    font-size: 36px;
+    margin: 20px 0;
+    animation: slideIn 1s ease-out; /* Slide in animation for heading */
 }
 
 p {
-    font-size: 24px; /* Larger font size for the answer result */
-    margin: 10px 0; /* Space around paragraphs */
+    font-size: 24px;
+    margin: 10px 0;
+    animation: slideIn 1.2s ease-out;
 }
 
 strong {
-    color: #FFD700; /* Highlight correct answers in gold */
+    color: #FFD700;
 }
 
 a {
-    display: inline-block; /* Allows block-like behavior for the link */
-    margin-top: 20px; /* Space above the link */
-    text-decoration: none; /* Remove underline from the link */
-    color: #FFD700; /* Gold color for consistency with theme */
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #FFD700;
 }
 
 a:hover {
-    text-decoration: underline; /* Underline on hover for feedback */
+    text-decoration: underline;
 }
 
 button {
-    background-color: #4CAF50; /* Green button color */
-    color: white; /* White text for the button */
-    padding: 10px 15px; /* Spacing inside the button */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-top: 10px; /* Space above the button */
-    font-size: 18px; /* Larger font size for readability */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
+}
+
+/* Correct and incorrect answer animations */
+.correct {
+    animation: flashGreen 1s ease-in-out;
+}
+
+.incorrect {
+    animation: flashRed 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes flashGreen {
+    0%, 100% { background-color: #1E1E50; }
+    50% { background-color: #00FF00; }
+}
+
+@keyframes flashRed {
+    0%, 100% { background-color: #1E1E50; }
+    50% { background-color: #FF0000; }
 }
