@@ -1,53 +1,23 @@
 <?php
 session_start();
 
-// Initialize teams and scores if this is a new game
+// Clear session data when the game is launched
+if (!isset($_SESSION['initialized'])) {
+    session_unset(); // Clear all session variables
+    $_SESSION['initialized'] = true; // Set a flag to prevent clearing session on reloads
+}
+
+// Initialize teams and scores if not already set
 if (isset($_POST['teamCount'])) {
     $_SESSION['teamCount'] = intval($_POST['teamCount']);
     $_SESSION['scores'] = array_fill(0, $_SESSION['teamCount'], 0);
     $_SESSION['currentTeam'] = 0;
-    $_SESSION['answered'] = []; // Reset answered questions
-    $_SESSION['isGameOver'] = false; // Reset the game over flag
 }
 
-// Get team count and initialize answered questions tracking if not set
+// Get team count and answered questions
 $teamCount = $_SESSION['teamCount'] ?? 1;
 if (!isset($_SESSION['answered'])) {
     $_SESSION['answered'] = [];
-}
-
-// Check if all questions have been answered
-$totalQuestions = 25; // 5 categories * 5 values
-$answeredQuestions = count(array_filter(array_merge(...$_SESSION['answered']), fn($a) => $a));
-$isGameOver = $answeredQuestions >= $totalQuestions;
-
-// Handle end of game and update leaderboard if not already done
-if ($isGameOver && !$_SESSION['isGameOver']) {
-    $winningTeam = null;
-    $highestScore = 0;
-
-    foreach ($_SESSION['scores'] as $teamIndex => $score) {
-        if ($score > $highestScore) {
-            $highestScore = $score;
-            $winningTeam = $teamIndex + 1; // Teams are 1-indexed
-        }
-    }
-
-    // Update leaderboard in session
-    if (!isset($_SESSION['leaderboard'])) {
-        $_SESSION['leaderboard'] = [];
-    }
-
-    if ($winningTeam !== null) {
-        if (!isset($_SESSION['leaderboard'][$winningTeam])) {
-            $_SESSION['leaderboard'][$winningTeam] = 0;
-        }
-        $_SESSION['leaderboard'][$winningTeam]++;
-    }
-
-    $_SESSION['isGameOver'] = true; // Mark game as over
-    header("Location: leaderboard.php");
-    exit();
 }
 ?>
 
@@ -65,7 +35,8 @@ if ($isGameOver && !$_SESSION['isGameOver']) {
 
         <!-- Display team scores and current team -->
         <div class="team-scores">
-            <ul class="team-scores-list">
+            <h2>Team Scores</h2>
+            <ul>
                 <?php for ($i = 0; $i < $teamCount; $i++): ?>
                     <li>Team <?= $i + 1 ?>: $<?= $_SESSION['scores'][$i] ?></li>
                 <?php endfor; ?>
@@ -87,6 +58,7 @@ if ($isGameOver && !$_SESSION['isGameOver']) {
                     <tr>
                         <?php for ($col = 1; $col <= 5; $col++): ?>
                             <?php 
+                            // Check if the question has been answered
                             $isAnswered = isset($_SESSION['answered'][$col][$row * 100]) ? 'answered' : ''; 
                             ?>
                             <td class="<?= $isAnswered ?>">
