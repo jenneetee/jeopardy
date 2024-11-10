@@ -48,14 +48,12 @@ $value = isset($_GET['value']) ? intval($_GET['value']) : 100;
 $questionIndex = $value / 100;
 
 // Fetch the question based on category and question index
-$questionData = isset($questions[$category][$questionIndex]) ? $questions[$category][$questionIndex] : null;
+$questionData = $questions[$category][$questionIndex] ?? null;
 
-// If no question found, display a "Question not found" message.
-if ($questionData === null) {
-    header("HTTP/1.1 404 Not Found");
-    $errorMessage = "Question not found for Category " . $category . " and Value " . $value;
+// Mark this question as answered immediately, regardless of the answer's correctness
+if ($category > 0 && $value > 0) {
+    $_SESSION['answered'][$category][$value] = true;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -68,12 +66,13 @@ if ($questionData === null) {
 </head>
 <body>
     <div class="container">
-        <?php if (isset($errorMessage)): ?>
-            <h1>Oops!</h1>
-            <p><strong><?= $errorMessage ?></strong></p>
-            <p><a href="gameplay.php">Return to Game</a></p>
-        <?php else: ?>
-            <h1>Question for $<?= $value ?></h1>
+        <audio autoplay loop id="playAudio">
+            <source src="media/jeopardy-theme.mp3">
+        </audio>
+
+        <h1>Question for $<?= $value ?></h1>
+
+        <?php if ($questionData): ?>
             <p><strong><?= $questionData['question'] ?></strong></p>
             <form action="answer.php" method="POST">
                 <input type="hidden" name="category" value="<?= $category ?>">
@@ -82,6 +81,8 @@ if ($questionData === null) {
                 <input type="text" name="answer" placeholder="Your answer here" required>
                 <button type="submit">Submit Answer</button>
             </form>
+        <?php else: ?>
+            <p>Question not found.</p>
         <?php endif; ?>
     </div>
 </body>
