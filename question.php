@@ -50,7 +50,10 @@ $questionIndex = $value / 100;
 // Fetch the question based on category and question index
 $questionData = $questions[$category][$questionIndex] ?? null;
 
-// Debugging output to help trace the issue
+// Mark this question as answered immediately, regardless of the answer's correctness
+if ($category > 0 && $value > 0) {
+    $_SESSION['answered'][$category][$value] = true;
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,14 +65,13 @@ $questionData = $questions[$category][$questionIndex] ?? null;
     <link rel="stylesheet" href="question.css">
 </head>
 <body>
-
     <div class="container">
-    <audio autoplay loop  id="playAudio">
-    <source src="media/jeopardy-theme.mp3">
-</audio>
+        <audio autoplay loop id="playAudio">
+            <source src="media/jeopardy-theme.mp3">
+        </audio>
 
         <h1>Question for $<?= $value ?></h1>
-        
+
         <?php if ($questionData): ?>
             <p><strong><?= $questionData['question'] ?></strong></p>
             <form action="answer.php" method="POST">
@@ -81,11 +83,6 @@ $questionData = $questions[$category][$questionIndex] ?? null;
             </form>
         <?php else: ?>
             <p>Question not found.</p>
-            <p><strong>Debugging Info:</strong></p>
-            <p>Category: <?= htmlspecialchars($category) ?></p>
-            <p>Value: <?= htmlspecialchars($value) ?></p>
-            <p>Question Index: <?= htmlspecialchars($questionIndex) ?></p>
-            <p>Array Check: <?= isset($questions[$category][$questionIndex]) ? 'Question exists' : 'Question does not exist' ?></p>
         <?php endif; ?>
     </div>
 </body>
