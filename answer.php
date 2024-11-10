@@ -50,18 +50,19 @@ if (isset($questions[$category][$value / 100])) {
     $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0;
 }
 
-
+// Update score based on correctness and mark question as answered
 if ($isCorrect) {
     $_SESSION['scores'][$teamIndex] += $value;
     $_SESSION['answered'][$category][$value] = true;
+    $answerClass = "correct-answer";
 } else {
     $_SESSION['scores'][$teamIndex] -= $value;
-    // Prevent negative score
     if ($_SESSION['scores'][$teamIndex] < 0) {
         $_SESSION['scores'][$teamIndex] = 0;
     }
+    $_SESSION['answered'][$category][$value] = true; // Mark question as answered even if wrong
+    $answerClass = "incorrect-answer";
 }
-
 
 $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount'];
 ?>
@@ -74,7 +75,7 @@ $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount
     <title>Answer Result</title>
     <link rel="stylesheet" href="answer.css">
 </head>
-<body>
+<body class="<?= $answerClass ?>">
     <div class="container">
         <h1>Answer Result</h1>
         <?php if ($isCorrect): ?>

@@ -48,9 +48,14 @@ $value = isset($_GET['value']) ? intval($_GET['value']) : 100;
 $questionIndex = $value / 100;
 
 // Fetch the question based on category and question index
-$questionData = $questions[$category][$questionIndex] ?? null;
+$questionData = isset($questions[$category][$questionIndex]) ? $questions[$category][$questionIndex] : null;
 
-// Debugging output to help trace the issue
+// If no question found, display a "Question not found" message.
+if ($questionData === null) {
+    header("HTTP/1.1 404 Not Found");
+    $errorMessage = "Question not found for Category " . $category . " and Value " . $value;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -63,9 +68,12 @@ $questionData = $questions[$category][$questionIndex] ?? null;
 </head>
 <body>
     <div class="container">
-        <h1>Question for $<?= $value ?></h1>
-        
-        <?php if ($questionData): ?>
+        <?php if (isset($errorMessage)): ?>
+            <h1>Oops!</h1>
+            <p><strong><?= $errorMessage ?></strong></p>
+            <p><a href="gameplay.php">Return to Game</a></p>
+        <?php else: ?>
+            <h1>Question for $<?= $value ?></h1>
             <p><strong><?= $questionData['question'] ?></strong></p>
             <form action="answer.php" method="POST">
                 <input type="hidden" name="category" value="<?= $category ?>">
@@ -74,13 +82,6 @@ $questionData = $questions[$category][$questionIndex] ?? null;
                 <input type="text" name="answer" placeholder="Your answer here" required>
                 <button type="submit">Submit Answer</button>
             </form>
-        <?php else: ?>
-            <p>Question not found.</p>
-            <p><strong>Debugging Info:</strong></p>
-            <p>Category: <?= htmlspecialchars($category) ?></p>
-            <p>Value: <?= htmlspecialchars($value) ?></p>
-            <p>Question Index: <?= htmlspecialchars($questionIndex) ?></p>
-            <p>Array Check: <?= isset($questions[$category][$questionIndex]) ? 'Question exists' : 'Question does not exist' ?></p>
         <?php endif; ?>
     </div>
 </body>

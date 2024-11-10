@@ -1,7 +1,13 @@
 <?php
 session_start();
 
-// Initialize teams and scores
+// Clear session data when the game is launched
+if (!isset($_SESSION['initialized'])) {
+    session_unset(); // Clear all session variables
+    $_SESSION['initialized'] = true; // Set a flag to prevent clearing session on reloads
+}
+
+// Initialize teams and scores if not already set
 if (isset($_POST['teamCount'])) {
     $_SESSION['teamCount'] = intval($_POST['teamCount']);
     $_SESSION['scores'] = array_fill(0, $_SESSION['teamCount'], 0);
@@ -52,6 +58,7 @@ if (!isset($_SESSION['answered'])) {
                     <tr>
                         <?php for ($col = 1; $col <= 5; $col++): ?>
                             <?php 
+                            // Check if the question has been answered
                             $isAnswered = isset($_SESSION['answered'][$col][$row * 100]) ? 'answered' : ''; 
                             ?>
                             <td class="<?= $isAnswered ?>">
