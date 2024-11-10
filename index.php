@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Clear session variables to reset the game if a new game is started
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['teamCount'])) {
+    $_SESSION['teamCount'] = intval($_POST['teamCount']);
+    $_SESSION['scores'] = array_fill(0, $_SESSION['teamCount'], 0);
+    $_SESSION['currentTeam'] = 0;
+    $_SESSION['answered'] = [];
+    $_SESSION['isGameOver'] = false; // Reset the game over flag
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
