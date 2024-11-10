@@ -45,3 +45,19 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.logout-button{
+    background-color: #FFD700;
+    color: white;
+    padding: 15px 20px; 
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px; 
+    font-size: 18px;
+}
+
+.logout-button:hover{
+    background-color: #917b00;
+}
