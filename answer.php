@@ -1,13 +1,14 @@
 <?php
 session_start();
 
+// Questions array with image paths for answers that have associated images
 $questions = [
     1 => [
-        1 => ['answer' => 'Doge'],
+        1 => ['answer' => 'Doge', 'image' =>'media/doge.png'],
         2 => ['answer' => 'Meme'],
-        3 => ['answer' => 'girl'],
-        4 => ['answer' => 'Kermit'],
-        5 => ['answer' => 'Grumpy Cat'],
+        3 => ['answer' => 'girl', 'image' => 'media/girl.png'],
+        4 => ['answer' => 'Kermit', 'image' => 'media/kermit.png'],
+        5 => ['answer' => 'Grumpy Cat', 'image' => 'media/grumpy-cat.png'],
     ],
     2 => [
         1 => ['answer' => '13'],
@@ -31,38 +32,42 @@ $questions = [
         5 => ['answer' => 'Clock'],
     ],
     5 => [
-        1 => ['answer' => 'Pho'],
-        2 => ['answer' => 'Sushi'],
-        3 => ['answer' => 'Paella'],
-        4 => ['answer' => 'Carbonara'],
-        5 => ['answer' => 'Escargot'],
+        1 => ['answer' => 'Pho','image' => 'media/pho.png'],
+        2 => ['answer' => 'Sushi','image' => 'media/sushi.png'],
+        3 => ['answer' => 'Paella','image' => 'media/paella.png'],
+        4 => ['answer' => 'Carbonara','image' => 'media/carbonara.png'],
+        5 => ['answer' => 'Escargot','image' => 'media/escargot.png'],
     ],
 ];
 
+// Retrieve category, value, and user-provided answer
 $category = $_POST['category'] ?? 1;
 $value = $_POST['value'] ?? 100;
 $userAnswer = $_POST['answer'] ?? '';
 $teamIndex = $_POST['team'] ?? 0;
 
+// Validate answer and set correct/incorrect status
 $isCorrect = false;
-if (isset($questions[$category][$value / 100])) {
-    $correctAnswer = $questions[$category][$value / 100]['answer'];
+$questionIndex = $value / 100;
+if (isset($questions[$category][$questionIndex])) {
+    $correctAnswer = $questions[$category][$questionIndex]['answer'];
+    $correctImage = $questions[$category][$questionIndex]['image'] ?? null; // Get image if it exists
     $isCorrect = strcasecmp($userAnswer, $correctAnswer) === 0;
 }
 
-
+//Update team score
 if ($isCorrect) {
     $_SESSION['scores'][$teamIndex] += $value;
     $_SESSION['answered'][$category][$value] = true;
 } else {
     $_SESSION['scores'][$teamIndex] -= $value;
-    // Prevent negative score
+    // stops scores from going negative
     if ($_SESSION['scores'][$teamIndex] < 0) {
         $_SESSION['scores'][$teamIndex] = 0;
     }
 }
 
-
+// Rotate to the next team
 $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount'];
 ?>
 
@@ -82,6 +87,13 @@ $_SESSION['currentTeam'] = ($_SESSION['currentTeam'] + 1) % $_SESSION['teamCount
         <?php else: ?>
             <p>Incorrect. The correct answer was: <strong><?= htmlspecialchars($correctAnswer) ?></strong></p>
         <?php endif; ?>
+        
+        <!-- Display the answer image if it exists -->
+        <?php if (isset($correctImage)): ?>
+            <img src="<?= $correctImage ?>" alt="Image for <?= htmlspecialchars($correctAnswer) ?>" width="200">
+        <?php endif; ?>
+        
+        <br>
         <a href="gameplay.php">Return to Game</a>
     </div>
 </body>

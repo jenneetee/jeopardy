@@ -62,13 +62,11 @@ $questionData = $questions[$category][$questionIndex] ?? null;
     <link rel="stylesheet" href="question.css">
 </head>
 <body>
+
     <div class="container">
-    <audio autoplay loop>
-        <source src="media/jeopardy-theme.mp4" type="audio/mpeg">
-        <source src="media/jeopardy-theme.ogg" type="audio/ogg">
-        <!-- Fallback message if the browser doesn’t support audio -->
-        Your browser does not support the audio element.
-    </audio>
+    <audio autoplay loop  id="playAudio">
+    <source src="media/jeopardy-theme.mp3">
+</audio>
 
         <h1>Question for $<?= $value ?></h1>
         
